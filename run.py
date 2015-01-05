@@ -7,7 +7,7 @@ OPTIONS = [
     ('help', 0, 'h'),
     ('list', 0, 'l'),
     ('edit', 0, 'e'),
-    ('group', 1, 'g'),
+    ('group', 0, 'g'),
     ('domain', 1, 'd'),
     ('switch', 1, 's'),
     ('remove', 1, 'r'),
@@ -81,7 +81,6 @@ def h_help():
     for h_text in helps:
         print h_text
 
-
 def h_group(group):
     h_list(group)
 
@@ -90,8 +89,12 @@ def h_list(group=None):
     if group is not None:
         if group in hosts:
             echo({group: hosts[group]})
+        elif group == "-g":
+
+            for key in hosts.keys:
+                print key + "\n\n"
         else:
-            print "Invalid group name: " + group + ".\n"
+            print "invalid group name:" + group + ".\n"
     else:
         echo(hosts)
 
