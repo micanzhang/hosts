@@ -77,7 +77,7 @@ def h_help():
         '-R    --Remove [domain] set domain disable',
         '-v    --version version info',
     ]
-    print "Useage: host_admin [options...]\n"
+    print "Useage: hosts [options...]\n"
     for h_text in helps:
         print h_text
 
@@ -114,7 +114,7 @@ def h_domain(domain):
 def h_switch(group):
     hosts = load_host()
     if not group in hosts:
-        exit("host_admin: invalid group name, try 'host_admin -l' for more information\n")
+        exit("hosts: invalid group name, try 'hosts -l' for more information\n")
     g_hosts = hosts[group]
     data = list()
     for host in g_hosts:
@@ -204,7 +204,7 @@ def parse_cmd():
     opt = args[0].strip()
     opt_config = parse_opt(opt)
     if opt_config is None:
-        exit("host_admin: invalid option, try 'host_admin -h' for more information\n")
+        exit("hosts: invalid option, try 'hosts -h' for more information\n")
 
     func = "h_" + opt_config[0]
     possibles = globals().copy()
@@ -213,7 +213,7 @@ def parse_cmd():
         method = possibles.get(func)()
     else:
         if len(args) < 2:
-            exit("host_admin:  miss parameters, try 'host_admin -h' for more information\n")
+            exit("hosts:  miss parameters, try 'hosts -h' for more information\n")
         method = possibles.get(func)(args[1])
     #method(args[1:])
     '''
@@ -224,32 +224,32 @@ def parse_cmd():
         edit_host()        
     elif opt_config[-1] == 'g':
         if len(args) < 2:
-            exit("host_admin: group name missing, try 'host_admin -h' for more information\n")
+            exit("hosts: group name missing, try 'hosts -h' for more information\n")
         list_hosts(args[1])
     elif opt_config[-1] == 'd':
         if len(args) < 2:
-            exit("host_admin: domain missing, try 'host_admin -h' for more information\n")
+            exit("hosts: domain missing, try 'hosts -h' for more information\n")
         domain_hosts(args[1])
     elif opt_config[-1] == 's':
         if len(args) < 2:
-            exit("host_admin: domain missing, try 'host_admin -h' for more information\n")
+            exit("hosts: domain missing, try 'hosts -h' for more information\n")
         switch_hosts(args[1])
     elif opt_config[-1] == 'r':
         if len(args) < 2:
-            exit("host_admin: host name missing, try 'host_admin -h' for more information\n")
+            exit("hosts: host name missing, try 'hosts -h' for more information\n")
         remove_group(args[1])
     elif opt_config[-1] == 'R':
         if len(args) < 2:
-            exit("host_admin: domain missing, try 'host_admin -h' for more information\n")
+            exit("hosts: domain missing, try 'hosts -h' for more information\n")
         remove_domain(args[1])
     elif opt_config[-1] == 'v':
         exit(VERSION)
     else:
-        exit("host_admin: invalid option, try 'host_admin -h' for more information\n")
+        exit("hosts: invalid option, try 'hosts -h' for more information\n")
     '''
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        exit("host_admin: try 'host_admin -h' for more information\n")
+        exit("hosts: try 'hosts -h' for more information\n")
 
     parse_cmd()
